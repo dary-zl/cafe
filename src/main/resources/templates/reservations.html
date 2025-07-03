@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Бронирования</title>
+</head>
+<body>
+  <table class="table">
+    <tr>
+      <td>Name</td>
+      <td>Data</td>
+      <td>Phone</td>
+      <td>Count</td>
+    </tr>
+    <tr th:each="reservation : ${reservations}">
+      <td th:text="${reservation.name}">TestName</td>
+      <td th:text="${reservation.reservationTime}">Data</td>
+      <td th:text="${reservation.phone}">12223567778</td>
+      <td th:text="${reservation.count}">1</td>
+    </tr>
+  </table>
+  <div class="button-group">
+    <button type="submit" th:href="@">Забронировать</button>
+  </div>
+</body>
+</html>
