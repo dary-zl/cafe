@@ -1,10 +1,12 @@
 package com.example.cafe.Controller;
 
+import com.example.cafe.DTO.ReservationDTO;
 import com.example.cafe.Service.ReservationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/reservations")
@@ -16,9 +18,52 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping("/reservations")
+    @GetMapping()
     public String userList(Model model) {
         model.addAttribute("reservations", reservationService.getAll());
-        return "reservationList";
+        return "reservations";
+    }
+
+    @PostMapping("/new")
+    public String saveReservation(@ModelAttribute("reservation") ReservationDTO reservationDTO,
+                                  Model model) {
+        if(reservationService.save(reservationDTO)) {
+            //model.addAttribute("success", "Столик успешно забронирован!");
+            model.addAttribute("reservation", new ReservationDTO());
+            return "index";
+        } else {
+            //model.addAttribute("error", "Ошибка при бронировании");
+            model.addAttribute("reservation", reservationDTO);
+            return "index";
+        }
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteReservation(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            reservationService.deleteReservation(id);
+            //redirectAttributes.addFlashAttribute("success", "Бронирование успешно удалено!");
+        } catch (Exception e) {
+            //redirectAttributes.addFlashAttribute("error", "Ошибка при удалении бронирования");
+        }
+        return "redirect:/reservations";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        ReservationDTO reservation = reservationService.findById(id);
+        model.addAttribute("reservation", reservation);
+        return "edit-reservation";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateReservation(@PathVariable Long id,
+                                    @ModelAttribute("reservation") ReservationDTO reservationDTO,
+                                    BindingResult result) {
+        if (result.hasErrors()) {
+            return "edit-reservation";
+        }
+        reservationService.updateReservation(id, reservationDTO);
+        return "redirect:/reservations";
     }
 }

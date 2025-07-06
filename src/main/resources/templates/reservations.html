@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Бронирования</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css-file/reserv-style.css">
+  <title>Бронирования</title>
 </head>
 <body>
-  <table class="table">
-    <tr>
-      <td>Name</td>
-      <td>Data</td>
-      <td>Phone</td>
-      <td>Count</td>
-    </tr>
-    <tr th:each="reservation : ${reservations}">
-      <td th:text="${reservation.name}">TestName</td>
-      <td th:text="${reservation.reservationTime}">Data</td>
-      <td th:text="${reservation.phone}">12223567778</td>
-      <td th:text="${reservation.count}">1</td>
-    </tr>
-  </table>
-  <div class="button-group">
-    <button type="submit" th:href="@">Забронировать</button>
-  </div>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Data</th>
+    <th>Phone</th>
+    <th>Count</th>
+    <th>Actions</th>
+  </tr>
+  <tr th:each="reservation : ${reservations}">
+    <td th:text="${reservation.name}">TestName</td>
+    <td th:text="${#temporals.format(reservation.reservationTime, 'dd.MM.yyyy HH:mm')}">24.02.2025 14:00</td>
+    <td th:text="${reservation.phone}">12223567778</td>
+    <td th:text="${reservation.count}">1</td>
+    <td>
+
+      <form th:action="@{/reservations/edit/{id}(id=${reservation.id})}" method="get" style="display: inline;">
+        <button type="submit" class="btn-edit">Редактировать</button>
+      </form>
+
+      <form th:action="@{/reservations/delete/{id}(id=${reservation.id})}" method="post" style="display: inline;">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit" class="btn-delete">Удалить</button>
+      </form>
+    </td>
+  </tr>
+</table>
 </body>
 </html>

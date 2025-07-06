@@ -1,0 +1,55 @@
+.section-map {
+    background-image: url('../image/bg.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.location-container {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.location-info {
+    flex: 1;
+    padding: 30px;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.location-info h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.location-info p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.location-map {
+    flex: 2;
+    height: 400px;
+}
+
+@media (max-width: 768px) {
+    .location-container {
+        flex-direction: column;
+    }
+    .location-map {
+        height: 300px;
+    }
+}

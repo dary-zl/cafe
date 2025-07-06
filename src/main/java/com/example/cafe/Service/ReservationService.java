@@ -9,5 +9,9 @@ public interface ReservationService {
     boolean save(ReservationDTO reservationDTO);
     void save(Reservation reservation);
     List<ReservationDTO> getAll();
-    Reservation findByName(String name);
+
+    void deleteReservation(Long id);
+
+    ReservationDTO findById(Long id);
+    void updateReservation(Long id, ReservationDTO reservationDTO);
 }
