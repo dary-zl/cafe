@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css-file/style.css">
+  <link rel="stylesheet" href="/css-file/home.css">
+  <link rel="stylesheet" href="/css-file/modal.css">
+  <link rel="stylesheet" href="/css-file/map.css">
+  <link rel="stylesheet" href="/css-file/slider.css">
   <link rel="stylesheet" href="/css-file/menu.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,35 +14,7 @@
   <title>Меню</title>
 </head>
 <body>
-<section id="header" class="section-header">
-  <div class="container">
-    <div class="header-line">
-      <div class="nav">
-        <a class="nav-item" th:href="@{/}">ГЛАВНАЯ</a>
-      </div>
-
-      <div class="phone">
-        <div class="phone-holder">
-          <div class="phone-image">
-            <img src="/image/phone.png" alt="Телефон">
-          </div>
-          <div class="number">
-            <a class="num" href="tel:+1234567890" id="copyPhoneBtn">+123-456-78-90</a>
-            <div class="copy-notification" id="copyNotification">Номер скопирован!</div>
-          </div>
-        </div>
-        <div class="phone-text">
-          Свяжитесь с нами <br> для бронирования
-        </div>
-      </div>
-
-      <div class="btn">
-        <a class="button" href="#" id="openModalBtn">Забронировать</a>
-      </div>
-    </div>
-  </div>
-</section>
-<script src="/js/copy-phone.js"></script>
+<div th:insert="~{fragment/header :: #header}"></div>
 
 <div class="menu-container">
   <h1 class="menu-title">Меню</h1>

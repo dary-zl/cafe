@@ -26,16 +26,14 @@ public class ReservationController {
 
     @PostMapping("/new")
     public String saveReservation(@ModelAttribute("reservation") ReservationDTO reservationDTO,
-                                  Model model) {
+                                  RedirectAttributes redirectAttributes) {
         if(reservationService.save(reservationDTO)) {
-            //model.addAttribute("success", "Столик успешно забронирован!");
-            model.addAttribute("reservation", new ReservationDTO());
-            return "index";
+            redirectAttributes.addFlashAttribute("success", "Столик успешно забронирован!");
         } else {
-            //model.addAttribute("error", "Ошибка при бронировании");
-            model.addAttribute("reservation", reservationDTO);
-            return "index";
+            redirectAttributes.addFlashAttribute("error", "Ошибка при бронировании");
+            redirectAttributes.addFlashAttribute("reservation", reservationDTO);
         }
+        return "redirect:/";
     }
 
     @PostMapping("/delete/{id}")
@@ -66,4 +64,6 @@ public class ReservationController {
         reservationService.updateReservation(id, reservationDTO);
         return "redirect:/reservations";
     }
+
+
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css-file/style.css">
+    <link rel="stylesheet" href="/css-file/home.css">
+    <link rel="stylesheet" href="/css-file/modal.css">
+    <link rel="stylesheet" href="/css-file/map.css">
+    <link rel="stylesheet" href="/css-file/slider.css">
+    <link rel="stylesheet" href="/css-file/menu-food.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <title>Напитки</title>
+</head>
+<body>
+<div th:insert="~{fragment/header :: #header}"></div>
+
+<h1>Наше меню</h1>
+
+<div class="category-nav">
+    <a th:href="@{/menu/drinks}"
+       th:classappend="${category == 'drinks'} ? 'active' : ''">Напитки</a>
+    <a th:href="@{/menu/food}"
+       th:classappend="${category == 'food'} ? 'active' : ''">Еда</a>
+    <a th:href="@{/menu/special}"
+       th:classappend="${category == 'special'} ? 'active' : ''">Специальные</a>
+</div>
+
+<h1 th:text="${category}">Категория</h1>
+
+
+<div th:each="subcat : ${subcategories}">
+    <div class="subcategory">
+        <h2 th:text="${subcat}">Подкатегория</h2>
+
+        <div th:each="product : ${products}"
+             th:if="${product.subcategory == subcat}" class="product-wrapper">
+            <div class="product-card">
+                <img th:src="@{'/' + ${product.imagePath}}"
+                     class="product-image"
+                     th:alt="${product.name}">
+                <h3 th:text="${product.name}">Coffe</h3>
+                <p th:text="${product.price} + ' руб.'">500 руб.</p>
+            </div>
+            <div class="product-details-card">
+                <p class="product-description" th:text="${product.info}">Прикольный кофе</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css-file/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <title>Header</title>
+</head>
+<body>
+<div id="header">
+<section class="container">
+  <div class="section-header">
+      <div class="header-line">
+        <div class="nav">
+          <a class="nav-item" href="/#home">ГЛАВНАЯ</a>
+          <a class="nav-item" href="/#info-section">О НАС</a>
+          <a class="nav-item" href="/#map-section">КАРТА</a>
+          <a class="nav-item" th:href="@{/menu}">МЕНЮ</a>
+        </div>
+
+        <div class="phone">
+          <div class="phone-holder">
+            <div class="phone-image">
+              <img src="/image/phone.png" alt="Телефон">
+            </div>
+            <div class="number">
+              <a class="num" href="tel:+1234567890" id="copyPhoneBtn">+123-456-78-90</a>
+              <div class="copy-notification" id="copyNotification">Номер скопирован!</div>
+            </div>
+          </div>
+          <div class="phone-text">
+            Свяжитесь с нами <br> для бронирования
+          </div>
+        </div>
+
+        <div class="btn">
+          <a class="button" href="#" id="openModalBtn">Забронировать</a>
+        </div>
+      </div>
+      <script src="/js/copy-phone.js"></script>
+    </div>
+
+  <div id="reservationModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 class="form-title">Бронирование столика</h2>
+      <form class="reservation-form" th:action="@{/reservations/new}" th:object="${reservation}" method="post">
+        <div class="form-group">
+          <label class="form-label">Ваше имя</label>
+          <input type="text" th:field="*{name}" placeholder="Иван Иванов" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Номер телефона</label>
+          <input type="tel" th:field="*{phone}" placeholder="+1 (234) 567-89-00" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Количество гостей</label>
+          <select th:field="*{count}" required>
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Дата и время</label>
+          <input type="date" id="reservationDate" required>
+          <select id="reservationHour" required>
+          </select>
+          <input type="hidden" th:field="*{reservationTime}" id="reservationTime">
+        </div>
+
+        <div class="button-group">
+          <button type="submit">Подтвердить бронь</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="/js/modal.js"></script>
+  <script src="/js/mess.js"></script>
+  <script src="/js/time.js"></script>
+
+  <div th:if="${success}" class="form-success" th:text="${success}"></div>
+  <div th:if="${error}" class="form-error" th:text="${error}"></div>
+</section>
+</div>
+</body>
+</html>

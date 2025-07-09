@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css-file/new-menu.css">
+  <link rel="stylesheet" href="/css-file/admin-header.css">
+    <title>Новый продукт</title>
+</head>
+<body>
+<div class="edit-container">
+  <h1>Добавление нового продукта</h1>
+
+  <form th:action="@{/menu/add}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="name">Название продукта:</label>
+      <input type="text" id="name" name="name" required th:value="${product?.name}">
+    </div>
+
+    <div class="form-group">
+      <label for="category">Категория:</label>
+      <select id="category" name="category" required>
+        <option value="drinks" th:selected="${product?.category == 'drinks'}">Напитки</option>
+        <option value="food" th:selected="${product?.category == 'food'}">Еда</option>
+        <option value="special" th:selected="${product?.category == 'special'}">Специальные</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="subcategory">Подкатегория:</label>
+      <input type="text" id="subcategory" name="subcategory" required th:value="${product?.subcategory}">
+    </div>
+
+    <div class="form-group">
+      <label for="price">Цена (руб.):</label>
+      <input type="number" id="price" name="price" min="0" step="0.01" required th:value="${product?.price}">
+    </div>
+
+    <div class="form-group">
+      <label for="info">Описание:</label>
+      <textarea id="info" name="info" th:text="${product?.info}"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Изображение:</label>
+      <input type="file" id="image" name="imageFile" accept="image/*" onchange="previewImage(this)">
+
+      <div id="imagePreviewContainer">
+        <p>Превью:</p>
+        <img id="imagePreview" class="image-preview">
+      </div>
+
+      <img th:if="${product?.imagePath}"
+           th:src="@{${product.imagePath}}"
+           class="image-preview">
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn-save">Сохранить</button>
+      <a th:href="@{/admin}" class="btn-cancel">Отмена</a>
+    </div>
+  </form>
+</div>
+<script src="/js/new-menu.js"></script>
+</body>
+</html>

@@ -1,7 +1,5 @@
 .menu-container {
-    margin-top: 80px;
-    padding: 40px 20px;
-    min-height: calc(100vh - 125px);
+    padding: 0 20px;
 }
 
 .menu-title {

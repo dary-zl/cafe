@@ -10,10 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             navigator.clipboard.writeText(phoneNumber)
                 .then(() => {
-                    // Показываем плашку
                     copyNotification.classList.add('show');
 
-                    // Скрываем через 2 секунды
                     setTimeout(() => {
                         copyNotification.classList.remove('show');
                     }, 2000);
@@ -26,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     setTimeout(() => {
                         copyNotification.classList.remove('show');
-                        // Возвращаем исходный вид
+
                         setTimeout(() => {
                             copyNotification.textContent = 'Номер скопирован!';
                             copyNotification.style.background = '#4CAF50';

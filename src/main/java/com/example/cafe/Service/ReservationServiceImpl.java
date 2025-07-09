@@ -71,7 +71,6 @@ public class ReservationServiceImpl implements ReservationService{
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Reservation not found"));
 
-        // Обновляем поля
         reservation.setName(reservationDTO.getName());
         reservation.setPhone(reservationDTO.getPhone());
         reservation.setCount(reservationDTO.getCount());
@@ -79,4 +78,6 @@ public class ReservationServiceImpl implements ReservationService{
 
         reservationRepository.save(reservation);
     }
+
+
 }
